@@ -43,12 +43,6 @@ function setAuthViewState(username) {
     element.classList.toggle("auth-locked", !loggedIn);
   });
 
-  const userBadgeEl = qs("#userBadge");
-  if (userBadgeEl) {
-    userBadgeEl.textContent = loggedIn ? normalized : "";
-    userBadgeEl.classList.toggle("hidden", !loggedIn);
-  }
-
   const shuffleBgBtn = qs("#shuffleBgBtn");
   if (shuffleBgBtn) {
     shuffleBgBtn.classList.toggle("hidden", !loggedIn);

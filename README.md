@@ -107,7 +107,7 @@ todolist/
 - 배경 이미지는 앱 로드 시 랜덤 적용 + 일정 주기로 자동 회전
 - 로그인 후 상단 `Shuffle background` 버튼으로 즉시 랜덤 변경 가능
 - 배경 변경 시 2개 레이어를 사용해 부드러운 크로스페이드 전환
-- 인사 문구는 시간대(`Good morning/afternoon/evening/night`) 기반으로 변경
+- 로그인 후 시계 위에 시간대 기반 인사 문구를 표시 (`Good evening, {username}`)
 
 ## 기능별 구현 가이드
 1. `clock`

@@ -121,7 +121,6 @@
     nameInput: null,
     loginHelp: null,
     greeting: null,
-    userBadge: null,
     logoutBtn: null,
     shuffleBgBtn: null,
     todoForm: null,
@@ -146,7 +145,7 @@
     el.classList.toggle("error", Boolean(isError));
   }
 
-  function getGreetingPrefix(hour) {
+  function getGreetingPrefixByHour(hour) {
     if (hour >= 5 && hour < 12) {
       return "Good morning";
     }
@@ -171,10 +170,6 @@
       el.classList.toggle("auth-locked", !loggedIn);
     });
 
-    if (els.userBadge) {
-      els.userBadge.textContent = loggedIn ? normalized : "";
-      els.userBadge.classList.toggle("hidden", !loggedIn);
-    }
     if (els.logoutBtn) {
       els.logoutBtn.classList.toggle("hidden", !loggedIn);
     }
@@ -183,7 +178,7 @@
     }
     if (els.greeting) {
       els.greeting.classList.toggle("hidden", !loggedIn);
-      els.greeting.textContent = loggedIn ? getGreetingPrefix(new Date().getHours()) + ", " + normalized : "";
+      els.greeting.textContent = loggedIn ? getGreetingPrefixByHour(new Date().getHours()) + ", " + normalized : "";
     }
     setHelper(
       els.loginHelp,
@@ -1058,7 +1053,6 @@
     els.nameInput = qs("#nameInput");
     els.loginHelp = qs("#loginHelp");
     els.greeting = qs("#greeting");
-    els.userBadge = qs("#userBadge");
     els.logoutBtn = qs("#logoutBtn");
     els.shuffleBgBtn = qs("#shuffleBgBtn");
     els.todoForm = qs("#todoForm");

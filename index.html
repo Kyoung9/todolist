@@ -72,16 +72,15 @@
           <p id="locationText" class="weather-location">Detecting location...</p>
           <p id="weatherText" class="weather-summary">Loading weather...</p>
         </section>
-        <p id="userBadge" class="utility-user hidden" aria-live="polite"></p>
         <button id="shuffleBgBtn" class="ghost-btn utility-shuffle hidden" type="button">Shuffle background</button>
         <button id="logoutBtn" class="ghost-btn utility-logout hidden" type="button">Change user</button>
       </header>
 
       <main class="hero">
         <p id="dateText" class="date-text muted">----</p>
+        <p id="greeting" class="hero-greeting hidden" aria-live="polite"></p>
         <h1 id="clock" aria-live="polite">--:--:--</h1>
         <section class="auth-card">
-          <p id="greeting" class="greeting hidden"></p>
           <form id="loginForm" class="stack login-form" novalidate data-no-reload>
             <label for="nameInput" class="label">Name</label>
             <input
