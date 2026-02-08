@@ -48,29 +48,6 @@
   white-space: nowrap;
 }
 
-.utility-user {
-  margin-left: 10px;
-  align-self: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  min-height: 40px;
-  padding: 10px 16px;
-  font-size: 13px;
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  max-width: min(42vw, 340px);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--color-text);
-  background: rgba(255, 255, 255, 0.08);
-}
-
 .weather-location {
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -105,10 +82,12 @@
   width: min(520px, 100%);
 }
 
-.greeting {
-  font-size: clamp(28px, 4.2vw, 44px);
+.hero-greeting {
+  font-size: clamp(16px, 2.4vw, 24px);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .login-form {
@@ -186,7 +165,6 @@ body.bg-light .weather-summary {
   color: #ffffff;
 }
 
-body.bg-light .utility-user,
 body.bg-light .ghost-btn {
   background: rgba(0, 0, 0, 0.42);
   border-color: rgba(255, 255, 255, 0.42);
@@ -435,8 +413,8 @@ body.bg-light .ghost-btn:hover {
     font-size: clamp(56px, 22vw, 118px);
   }
 
-  .greeting {
-    font-size: clamp(22px, 8vw, 34px);
+  .hero-greeting {
+    font-size: clamp(15px, 5.2vw, 21px);
   }
 
   .todo-dock {

@@ -25,8 +25,7 @@ function getGreetingPrefixByHour(hour) {
 }
 
 function buildGreeting(username) {
-  const now = new Date();
-  const prefix = getGreetingPrefixByHour(now.getHours());
+  const prefix = getGreetingPrefixByHour(new Date().getHours());
   return `${prefix}, ${username}`;
 }
 
