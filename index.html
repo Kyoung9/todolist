@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Todo Dashboard</title>
+    <script>
+      window.__WEATHER_API_KEY__ = "ff6da536ba6336cf6aa4d0259f63d2f9";
+      (() => {
+        window.__APP_READY__ = false;
+        document.addEventListener("submit", (event) => {
+          const form = event.target;
+          if (!(form instanceof HTMLFormElement) || !form.hasAttribute("data-no-reload")) {
+            return;
+          }
+
+          event.preventDefault();
+
+          // Fallback path: if app module failed to load, still allow username save.
+          if (!window.__APP_READY__ && form.id === "loginForm") {
+            const inputEl = form.querySelector("#nameInput");
+            const helperEl = document.querySelector("#loginHelp");
+            const username = String(inputEl?.value ?? "")
+              .trim()
+              .replace(/\s+/g, " ");
+
+            if (username.length < 2) {
+              if (helperEl) {
+                helperEl.textContent = "Name must be at least 2 characters.";
+                helperEl.classList.add("error");
+              }
+              return;
+            }
+
+            try {
+              localStorage.setItem("todo.username", username);
+              location.reload();
+            } catch {
+              if (helperEl) {
+                helperEl.textContent = "Unable to save username. Check browser storage settings.";
+                helperEl.classList.add("error");
+              }
+            }
+          }
+        });
+
+        try {
+          const saved = localStorage.getItem("todo.username") ?? "";
+          const username = saved.trim().replace(/\s+/g, " ");
+          document.documentElement.classList.add(username ? "auth-ready" : "auth-locked");
+        } catch {
+          document.documentElement.classList.add("auth-locked");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+  </head>
+  <body>
+    <div class="bg-stage" aria-hidden="true">
+      <div class="bg-layer is-active" data-bg-layer="0"></div>
+      <div class="bg-layer" data-bg-layer="1"></div>
+    </div>
+
+    <div class="app" id="app">
+      <header class="utility-bar">
+        <section class="weather" aria-live="polite">
+          <p id="locationText" class="weather-location">Detecting location...</p>
+          <p id="weatherText" class="weather-summary">Loading weather...</p>
+        </section>
+        <p id="userBadge" class="utility-user hidden" aria-live="polite"></p>
+        <button id="shuffleBgBtn" class="ghost-btn utility-shuffle hidden" type="button">Shuffle background</button>
+        <button id="logoutBtn" class="ghost-btn utility-logout hidden" type="button">Change user</button>
+      </header>
+
+      <main class="hero">
+        <p id="dateText" class="date-text muted">----</p>
+        <h1 id="clock" aria-live="polite">--:--:--</h1>
+        <section class="auth-card">
+          <p id="greeting" class="greeting hidden"></p>
+          <form id="loginForm" class="stack login-form" novalidate data-no-reload>
+            <label for="nameInput" class="label">Name</label>
+            <input
+              required
+              id="nameInput"
+              name="name"
+              type="text"
+              minlength="2"
+              maxlength="20"
+              placeholder="What is your name?"
+              aria-describedby="loginHelp"
+              autocomplete="name"
+            />
+            <button type="submit">Continue</button>
+            <p id="loginHelp" class="helper">Use 2-20 characters.</p>
+          </form>
+        </section>
+      </main>
+
+      <section class="todo-dock">
+        <p id="todoLockNotice" class="todo-lock hidden">Login required to use todo features.</p>
+        <div class="todo-toolbar">
+          <p id="todoSummary" class="muted">0 tasks</p>
+          <div class="todo-filters" id="todoFilters">
+            <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-btn" type="button" data-filter="active" aria-pressed="false">Active</button>
+            <button class="filter-btn" type="button" data-filter="done" aria-pressed="false">Done</button>
+          </div>
+        </div>
+        <form id="todoForm" class="todo-form" data-no-reload>
+          <label for="todoInput" class="label">Todo</label>
+          <input
+            id="todoInput"
+            name="todo"
+            type="text"
+            maxlength="80"
+            placeholder="Write a task and press Enter"
+            aria-describedby="todoHelp"
+            required
+          />
+          <button type="submit">Add</button>
+          <p id="todoHelp" class="helper">Maximum 80 characters.</p>
+        </form>
+        <div class="todo-actions">
+          <button id="clearDoneBtn" class="ghost-btn" type="button">Clear completed</button>
+        </div>
+        <p id="todoEmpty" class="todo-empty muted">No tasks yet. Add your first task.</p>
+        <ul id="todoList" class="todo-list" aria-live="polite"></ul>
+      </section>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    <script defer src="js/fallbackApp.js"></script>
+  </body>
+</html>
